@@ -6,12 +6,12 @@ RUN yum -y -q update && yum clean all
 
 # Add files to the container
 ADD src/init.sh /
-ADD src/start-lockss.sh /usr/local/bin
+ADD src/start-lockss.sh /
 ADD src/lockss.repo /etc/yum.repos.d
 ADD src/motd /etc/motd
 
 # Change the execute bit on scripts
-RUN chmod 755 /init.sh /usr/local/bin/start-lockss.sh
+RUN chmod 755 /init.sh /start-lockss.sh
 
 # Import the LOCKSS GPG key
 RUN rpm --import http://www.lockss.org/LOCKSS-GPG-RPM-KEY

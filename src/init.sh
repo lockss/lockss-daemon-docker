@@ -1,4 +1,4 @@
 #!/bin/sh
 cat /etc/motd
-/usr/local/bin/start-lockss.sh
+/start-lockss.sh
 /bin/bash
