@@ -30,7 +30,8 @@ the file directly or by running `hostconfig` within the container.
 along network and storage configuration: The `cache` and `log/lockss` directories 
 are linked to `/cache` and `/var/log/lockss` within the container, respectively. If 
 the path to these directories change, the mapping in `start.sh` should be updated.
-Additional paths can be added, but need to be reflected in `lockss/config.dat`.
+Additional paths can be added, but need to be reflected in bot `start.sh` and 
+`lockss/config.dat`.
 
     This file also contains mapping from the Docker host to ports exposed by the 
 container. If there are port conflicts, ports on the host-side can be remapped by
