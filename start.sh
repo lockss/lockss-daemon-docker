@@ -2,7 +2,7 @@
 docker run \
     -it \
     --rm \
-    -v `pwd`/cache:/cache \
+    -v `pwd`/cache:/cache0 \
     -v `pwd`/log/lockss:/var/log/lockss \
     -v `pwd`/lockss:/opt/lockss \
     -p 9729:9729 \
