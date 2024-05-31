@@ -1,5 +1,5 @@
 ## Introduction
-This is an experimental project to run the LOCKSS daemon with a Docker container.
+This is project is the containerization of the 1.x LOCKSS daemon.
 
 ## Usage
 1. Clone the `lockss-daemon-docker` repository:
@@ -8,31 +8,29 @@ This is an experimental project to run the LOCKSS daemon with a Docker container
     git clone https://github.com/lockss/lockss-daemon-docker
     ```
 
-2. Build the lockss/lockss-daemon Docker image using the provided script:
+2. Build the `lockss/lockss-daemon` Docker image using the provided script:
 
     ```
-    ./build.sh
+    bin/build-image.sh
     ```
 
-3. Run an instance of the image in a Docker container using the provided script:
+3. Start the container using Docker Compose:
 
     ```
-    ./start.sh
+    docker compose up -d
     ```
 
 ## Configuration
-* `lockss/config.dat`: A an example LOCKSS configuration file is provided to allow
-the LOCKSS daemon to run locally. The default username and password is `lockss` and
-`lockss`, respectively. This and other parameters can be changed, either by editing
-the file directly or by running `hostconfig` within the container.
+There are three files that control the configuration of the LOCKSS daemon:
 
-* `start.sh`: This file is responsible for starting the Docker container and passing
-along network and storage configuration: The `cache` and `log/lockss` directories 
-are linked to `/cache` and `/var/log/lockss` within the container, respectively. If 
-the path to these directories change, the mapping in `start.sh` should be updated.
-Additional paths can be added, but need to be reflected in both `start.sh` and 
-`lockss/config.dat`.
+1. `/etc/lockss/config.dat`: The LOCKSS daemon configuration: This file 
+   should already exist at this location, if you had a previous installation
+   of the LOCKSS daemon. If this is the first time installing LOCKSS on this
+   host, use `bin/hostconfig` and follow its prompts to generate a `config.dat`.
 
-    This file also contains mapping from the Docker host to ports exposed by the 
-container. If there are port conflicts, ports on the host-side can be remapped by
-editing `start.sh`.
+2. `compose.yaml`: The Docker Compose file defining the `lockss` service: This
+   file makes many assumptions about the running environment, such as ports
+   and filesystems mapped into the container. See it for details.
+
+3. `lockss.env`: Environment variables mapped into the LOCKSS container: Not
+   supported yet.
