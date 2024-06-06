@@ -2,6 +2,15 @@ FROM rockylinux:9
 
 MAINTAINER "Daniel Vargas" <dlvargas@stanford.edu>
 
+ARG USER_ID=503
+ARG GROUP_ID=503
+
+RUN userdel -f lockss &&\
+    if getent group lockss; then groupdel lockss; fi &&\
+    groupadd -g ${GROUP_ID} lockss &&\
+    useradd -l -u ${USER_ID} -g lockss lockss &&\
+    install -d -m 0755 -o lockss -g lockss /home/lockss
+
 # LOCKSS LCAP and Administrative Web UI ports
 EXPOSE 9729/tcp
 EXPOSE 8081/tcp
@@ -23,3 +32,5 @@ RUN chmod 755 /docker-entrypoint.sh /start-lockss.sh
 
 # Set the default entry point for the container
 CMD ["/docker-entrypoint.sh"]
+
+USER lockss
