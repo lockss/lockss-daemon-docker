@@ -3,12 +3,15 @@ services:
     image: lockss/lockss-daemon
     container_name: lockss
     hostname: localhost
+    user: "lockss:${UID}:${GID}"
     env_file: lockss.env
     ports:
       - "9729:9729" # LCAP v3
       - "8081:8081" # LOCKSS Web Admin UI
     volumes:
-      - /etc/lockss/config.dat:/etc/lockss/config.dat
+      - type: bind
+        source: /etc/lockss/config.dat
+        target: /etc/lockss/config.dat
       - /lockss:/lockss
       - /var/log/lockss:/var/log/lockss
       - /etc/localtime:/etc/localtime:ro
