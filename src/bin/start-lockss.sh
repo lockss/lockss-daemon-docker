@@ -13,16 +13,10 @@ start_lockss () {
         chown ${1} ${LOG_DIR}
         chmod 755 ${LOG_DIR}
     fi
-    if [ ! -f ${PID_FILE} ]; then
-        touch ${PID_FILE}
-    fi
-    chown ${1} ${PID_FILE}
-    chmod 644 ${PID_FILE}
     echo -n "Starting LOCKSS... "
     echo "Starting LOCKSS for user ${1} at `date`" >> ${LOG_FILE}
     chown ${1} ${LOG_FILE}
     /etc/lockss/startdaemon ${1}
-    echo "OK"
 }
 
 set_lockss_user
