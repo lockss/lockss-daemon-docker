@@ -5,9 +5,7 @@ MAINTAINER "Daniel Vargas" <dlvargas@stanford.edu>
 ARG USER_ID=503
 ARG GROUP_ID=503
 
-RUN userdel -f lockss &&\
-    if getent group lockss; then groupdel lockss; fi &&\
-    groupadd -g ${GROUP_ID} lockss &&\
+RUN groupadd -g ${GROUP_ID} lockss &&\
     useradd -l -u ${USER_ID} -g lockss lockss &&\
     install -d -m 0755 -o lockss -g lockss /home/lockss
 
