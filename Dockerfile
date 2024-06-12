@@ -21,11 +21,6 @@ RUN yum -y -q update && yum clean all
 # Install LOCKSS via RPM
 RUN yum -y install lockss-daemon java-1.8.0-openjdk-headless.x86_64 iproute procps
 
-# Grant lockss ownership of daemon
-RUN mkdir /var/run/lockss
-RUN chown lockss:lockss /etc/init.d/lockss /etc/logrotate.d/lockss
-RUN chown --recursive 503:503 /etc/lockss /usr/share/lockss /var/log/lockss /var/run/lockss
-
 # Add files
 ADD src/bin/start-lockss.sh /
 ADD src/bin/docker-entrypoint.sh /
@@ -35,5 +30,3 @@ RUN chmod 755 /docker-entrypoint.sh /start-lockss.sh
 
 # Set the default entry point for the container
 CMD ["/docker-entrypoint.sh"]
-
-USER lockss
