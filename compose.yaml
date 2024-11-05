@@ -14,6 +14,7 @@ services:
       - /lockss:/lockss
       - /var/log/lockss:/var/log/lockss
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     restart: always
     stop_grace_period: 1m
     healthcheck:
