@@ -8,6 +8,8 @@ services:
     ports:
       - "9729:9729" # LCAP v3
       - "8081:8081" # LOCKSS Web Admin UI
+      - "8082:8082" # LOCKSS ServeContent
+      - "15270:15270" # Derby db
     volumes:
       - type: bind
         source: /etc/lockss/config.dat
@@ -22,3 +24,13 @@ services:
       test: "ss -n --listening --tcp | grep -P 'LISTEN.+:9729' || exit 1"
       timeout: 3s
       retries: 0
+    networks:
+      custom_net:
+        ipv4_address: 172.18.0.2
+networks:
+    custom_net:
+      driver: bridge
+      ipam:
+        config:
+          - subnet: 172.18.0.0/16
+            gateway: 172.18.0.1

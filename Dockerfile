@@ -12,6 +12,7 @@ RUN groupadd -g ${GROUP_ID} lockss &&\
 # LOCKSS LCAP and Administrative Web UI ports
 EXPOSE 9729/tcp
 EXPOSE 8081/tcp
+EXPOSE 8082/tcp
 
 # Setup LOCKSS RPM repository
 ADD src/lockss.repo /etc/yum.repos.d
@@ -29,9 +30,11 @@ RUN chown --recursive 503:503 /etc/lockss /usr/share/lockss /var/log/lockss /var
 # Add files
 ADD src/bin/start-lockss.sh /
 ADD src/bin/docker-entrypoint.sh /
+ADD src/bin/rundaemon /etc/lockss/rundaemon
 
 # Ensure the execute bit is set
 RUN chmod 755 /docker-entrypoint.sh /start-lockss.sh
+RUN chmod 755 /etc/lockss/rundaemon
 
 # Set the default entry point for the container
 CMD ["/docker-entrypoint.sh"]
