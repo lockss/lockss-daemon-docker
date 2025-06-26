@@ -1,6 +1,6 @@
 FROM rockylinux:9
 
-MAINTAINER "Daniel Vargas" <dlvargas@stanford.edu>
+LABEL maintainer="Daniel Vargas <dlvargas@stanford.edu>"
 
 ARG USER_ID=503
 ARG GROUP_ID=503
@@ -23,6 +23,7 @@ RUN yum -y -q update && yum clean all
 RUN yum -y install lockss-daemon java-1.8.0-openjdk-headless.x86_64 iproute procps
 
 # Grant lockss ownership of daemon
+RUN mkdir /var/log/lockss
 RUN mkdir /var/run/lockss
 RUN chown lockss:lockss /etc/init.d/lockss /etc/logrotate.d/lockss
 RUN chown --recursive 503:503 /etc/lockss /usr/share/lockss /var/log/lockss /var/run/lockss
