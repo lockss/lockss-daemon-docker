@@ -3,7 +3,6 @@ services:
     image: lockss/lockss-daemon
     container_name: lockss
     hostname: localhost
-    user: "lockss:${UID}:${GID}"
     env_file: lockss.env
     ports:
       - "9729:9729" # LCAP v3
