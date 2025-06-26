@@ -30,11 +30,9 @@ RUN chown --recursive 503:503 /etc/lockss /usr/share/lockss /var/log/lockss /var
 # Add files
 ADD src/bin/start-lockss.sh /
 ADD src/bin/docker-entrypoint.sh /
-ADD src/bin/rundaemon /etc/lockss/rundaemon
 
 # Ensure the execute bit is set
 RUN chmod 755 /docker-entrypoint.sh /start-lockss.sh
-RUN chmod 755 /etc/lockss/rundaemon
 
 # Set the default entry point for the container
 CMD ["/docker-entrypoint.sh"]
