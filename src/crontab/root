@@ -1,0 +1,1 @@
+0 1 * * *    /usr/sbin/logrotate /etc/logrotate.d/lockss

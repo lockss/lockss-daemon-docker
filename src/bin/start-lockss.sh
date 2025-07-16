@@ -1,5 +1,6 @@
 #!/bin/sh
 
+. /etc/init.d/functions
 . /etc/profile
 . /etc/lockss/functions
 
@@ -18,13 +19,12 @@ start_lockss () {
     fi
     chown ${1} ${PID_FILE}
     chmod 644 ${PID_FILE}
-    echo -n "Starting LOCKSS... "
+    echo -n "Starting ${1}: "
     echo "Starting LOCKSS for user ${1} at `date`" >> ${LOG_FILE}
     chown ${1} ${LOG_FILE}
-    /etc/lockss/startdaemon ${1}
-    echo "OK"
+    daemon /etc/lockss/startdaemon ${1}
+    echo
 }
-
 set_lockss_user
 for A in ${LOCKSS_USER}
 do
@@ -32,5 +32,6 @@ do
         start_lockss ${A}
         unset_variables
 done
+
 
 exit 0
