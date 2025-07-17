@@ -2,15 +2,15 @@ FROM rockylinux:9
 
 MAINTAINER "Daniel Vargas" <dlvargas@stanford.edu>
 
-ARG USER_ID=503
-ARG GROUP_ID=503
+ARG USER_ID=504
+ARG GROUP_ID=504
 
 RUN groupadd -g ${GROUP_ID} lockss &&\
     useradd -l -u ${USER_ID} -g lockss lockss &&\
     install -d -m 0755 -o lockss -g lockss /home/lockss
 
 # LOCKSS LCAP and Administrative Web UI ports
-EXPOSE 9729/tcp
+EXPOSE 9749/tcp
 EXPOSE 8081/tcp
 
 # Setup LOCKSS RPM repository
