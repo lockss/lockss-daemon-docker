@@ -79,4 +79,30 @@ chown lockss:lockss /var/log/lockss
     ```
     docker compose up -d
     ```
+## Notes
+
+### LOCKSS Configuration file
+
+The LOCKSS configuration file (/etc/lockss/config.dat) would normally be
+migrated from a previous installation of LOCKSS.  If this is your firt time
+installed LOCKSS, you can install the example file (examples/config.dat) in
+/etc/lockss on the Docker host.  Once the container is up, you can connect to
+the container with a shell (docker exec -it lockss /bin/bash) and run
+/etc/lockss/hostconfig.  If you need help, contact lockss-support@lockss.org
+by email.
+
+### Additional Ports for Proxies or ServeContent
+
+If you'd like to configure ServeContent or Audit Proxy, you'll need to add
+the configured port (typically 8080, 8082, or 8083) to these Docker setup
+files.  Add an "EXPOSE" line to Dockerfile and a "ports" pair to compose.yaml.
+Stop the container (docker stop lockss) then build a new image by running
+bin/built-imgae.sh.
+
+### LOCKSS Software Update
+
+If there's a new version of the released LOCKSS daemon you'd like to run,
+stop the container (docker stop lockss) and then build a new image by running
+bin/built-image.sh  Then start the container with "docker compose up -d"
+
 
