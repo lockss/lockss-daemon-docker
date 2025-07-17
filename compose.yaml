@@ -5,7 +5,7 @@ services:
     hostname: localhost
     env_file: lockss.env
     ports:
-      - "9729:9729" # LCAP v3
+      - "9749:9749" # LCAP v3
       - "8081:8081" # LOCKSS Web Admin UI
     volumes:
       - type: bind
@@ -18,6 +18,6 @@ services:
     restart: always
     stop_grace_period: 1m
     healthcheck:
-      test: "ss -n --listening --tcp | grep -P 'LISTEN.+:9729' || exit 1"
+      test: "ss -n --listening --tcp | grep -P 'LISTEN.+:9749' || exit 1"
       timeout: 3s
       retries: 0
