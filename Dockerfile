@@ -21,6 +21,8 @@ RUN yum -y -q update && yum clean all
 # Install LOCKSS via RPM
 RUN yum -y install lockss-daemon java-1.8.0-openjdk-headless.x86_64 iproute procps
 
+# RUN rpm -I http://props.lockss.org:8000/tal/lockss-daemon-1.78.6-2.noarch.rpm
+
 # Add files
 ADD src/bin/start-lockss.sh /
 ADD src/bin/docker-entrypoint.sh /
