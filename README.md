@@ -14,7 +14,6 @@ a LOCKSS log directory.
 
 ```
 useradd -r -m -d /opt/app/lockss -s /bin/bash lockss
-
 usermod -a -G docker lockss
 usermod -a -G users lockss
 ```
@@ -25,8 +24,7 @@ time installing LOCKSS, seek help from lockss-support@lockss.org by email.
 ```
 mkdir /etc/lockss
 chmod 755 /etc/lockss
-
-install /etc/lockss/config.dat
+# install /etc/lockss/config.dat
 chmod 644 /etc/lockss/config.dat
 ```
 
@@ -45,11 +43,12 @@ chown lockss:lockss /var/log/lockss
 ```
 
 ## Container Setup
-1. Clone the `lockss-daemon-docker` repository:
+1. Log in to the Docker host as the lockss ID.  From the home directory, clone
+the `lockss-daemon-docker` repository as follows:
 
     ```
     git clone https://github.com/lockss/lockss-daemon-docker
-
+    cd lockss-daemon-docker
     git checkout user-template
     ```
 
@@ -97,12 +96,23 @@ If you'd like to configure ServeContent or Audit Proxy, you'll need to add
 the configured port (typically 8080, 8082, or 8083) to these Docker setup
 files.  Add an "EXPOSE" line to Dockerfile and a "ports" pair to compose.yaml.
 Stop the container (docker stop lockss) then build a new image by running
-bin/built-imgae.sh.
+bin/build-image.sh from the lockss-daemon-docker directory in the lockss ID
+home directory..
 
 ### LOCKSS Software Update
 
-If there's a new version of the released LOCKSS daemon you'd like to run,
-stop the container (docker stop lockss) and then build a new image by running
-bin/built-image.sh  Then start the container with "docker compose up -d"
+If there's a new version of the released LOCKSS daemon you'd like to run, log
+in to the Docker host using the lockss ID, change directory into the
+lockss-daemon-docker directory, then run the following commands:
 
+    ```
+    docker compose down lockss
+    docker rmi lockss
+    bin/clean-build-image.sh
+    docker compose up -d
+    ```
+
+This procedure stop and deletes the lockss container, deletes the current
+lockss docker image, then creates a clean docker image (it'll take a couple
+of minutes) and starts a docker container using the new docker image.
 
