@@ -28,6 +28,9 @@ RUN yum -y -q update && yum clean all
 #   cronie: cron daemon
 #   logrotate: logrotate daemon
 #   initscripts: SYSV startup script support
+#   bind-utils: nslookup for network diagnostics
+#   iputils:  ping for network diagnostics
+#   nmap-ncat: "nc" for network diagnostics
 RUN yum -y install lockss-daemon java-1.8.0-openjdk-headless iproute \
     procps cronie logrotate initscripts bind-utils iputils nmap-ncat
 
