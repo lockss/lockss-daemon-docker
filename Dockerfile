@@ -3,8 +3,8 @@ FROM rockylinux:9
 LABEL org.opencontainers.image.authors="lockss-support@lockss.org"
 
 # Linux user "lockss" - should match UID and GID on Docker host for "lockss"
-ARG USER_ID=<configure>
-ARG GROUP_ID=<configure>
+ARG USER_ID=1001
+ARG GROUP_ID=1001
 
 # Set up "lockss" user
 RUN groupadd -g ${GROUP_ID} lockss &&\
@@ -29,7 +29,7 @@ RUN yum -y -q update && yum clean all
 #   logrotate: logrotate daemon
 #   initscripts: SYSV startup script support
 RUN yum -y install lockss-daemon java-1.8.0-openjdk-headless iproute \
-      procps cronie logrotate initscripts bind-utils iputils namp-ncat
+    procps cronie logrotate initscripts bind-utils iputils nmap-ncat
 
 # Add files
 #   docker-entrypoint.sh: Container start script
