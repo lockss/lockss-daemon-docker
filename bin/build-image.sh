@@ -1,2 +1,2 @@
 #!/bin/sh
-docker build -t lockss/lockss-daemon .
+docker build --no-cache -t lockss/lockss-daemon .

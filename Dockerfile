@@ -19,7 +19,11 @@ RUN rpm --import https://assets.lockss.org/rpm/LOCKSS-GPG-RPM-KEY
 RUN yum -y -q update && yum clean all
 
 # Install LOCKSS via RPM
-RUN yum -y install lockss-daemon java-1.8.0-openjdk-headless.x86_64 iproute procps
+#   bind-utils: nslookup for network diagnostics
+#   iputils:  ping for network diagnostics
+#   nmap-ncat: "nc" for network diagnostics
+RUN yum -y install lockss-daemon java-1.8.0-openjdk-headless.x86_64 \
+    iproute procps bind-utils iputils nmap-ncat
 
 # Add files
 ADD src/bin/start-lockss.sh /
