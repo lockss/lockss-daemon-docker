@@ -3,8 +3,8 @@ FROM rockylinux:9
 LABEL org.opencontainers.image.authors="lockss-support@lockss.org"
 
 # Linux user "lockss" - should match UID and GID on Docker host for "lockss"
-ARG USER_ID=1001
-ARG GROUP_ID=1001
+ARG USER_ID=<configure>
+ARG GROUP_ID=<configure>
 
 # Set up "lockss" user
 RUN groupadd -g ${GROUP_ID} lockss &&\
