@@ -10,6 +10,7 @@ RUN groupadd -g ${GROUP_ID} lockss &&\
     install -d -m 0755 -o lockss -g lockss /home/lockss
 
 # LOCKSS LCAP and Administrative Web UI ports
+EXPOSE 9729/tcp
 EXPOSE 9749/tcp
 EXPOSE 8081/tcp
 
