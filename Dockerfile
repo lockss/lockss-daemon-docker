@@ -18,10 +18,12 @@ ADD src/lockss.repo /etc/yum.repos.d
 RUN rpm --import https://assets.lockss.org/rpm/LOCKSS-GPG-RPM-KEY
 RUN yum -y -q update && yum clean all
 
-# Install LOCKSS via RPM
-RUN yum -y install lockss-daemon java-1.8.0-openjdk-headless.x86_64 iproute procps
+# Install java and various debugging/networking tools
+RUN yum -y install java-1.8.0-openjdk-headless.x86_64  \
+    iproute procps bind-utils iputils nmap-ncat
 
-# RUN rpm -I http://props.lockss.org:8000/tal/lockss-daemon-1.78.6-2.noarch.rpm
+# Install LOCKSS using rpm
+RUN rpm -I http://props.lockss.org:8000/tal/lockss-daemon-latest.noarch.rpm
 
 # Add files
 ADD src/bin/start-lockss.sh /
