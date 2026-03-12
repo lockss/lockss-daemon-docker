@@ -24,7 +24,7 @@ RUN yum -y install java-1.8.0-openjdk-headless.x86_64  \
     iproute procps bind-utils iputils nmap-ncat
 
 # Install LOCKSS using rpm
-RUN rpm -I http://props.lockss.org:8001/tal/lockss-daemon-latest.noarch.rpm
+RUN rpm -i http://props.lockss.org:8001/tal/lockss-daemon-latest.noarch.rpm
 
 # Add files
 ADD src/bin/start-lockss.sh /
