@@ -4,6 +4,7 @@ docker run \
     --rm \
     -n lockss \
     -p 9729:9729 \
+    -p 9749:9749 \
     -p 8081:8081 \
     -v /etc/lockss:/etc/lockss \
     -v /lockss:/lockss \
