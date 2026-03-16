@@ -11,8 +11,7 @@ services:
       - type: bind
         source: /etc/lockss/config.dat
         target: /etc/lockss/config.dat
-        source: /etc/lockss/keys
-        target: /etc/lockss/keys
+      - /etc/lockss/keys:/etc/lockss/keys
       - /lockss:/lockss
       - /var/log/lockss:/var/log/lockss
       - /etc/localtime:/etc/localtime:ro
