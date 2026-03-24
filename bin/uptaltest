@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# install the most recent tal test v1 daemon in a running container
+
+docker exec lockss rpm -U http://props.lockss.org:8001/tal/lockss-daemon-latest.noarch.rpm && docker exec lockss killall java
