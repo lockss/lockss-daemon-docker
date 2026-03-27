@@ -9,4 +9,5 @@ docker run \
     -v /lockss:/lockss \
     -v /var/log/lockss:/var/log/lockss \
     -v /etc/localtime:/etc/localtime:ro \
+    -v /opt/apache-tomcat-8.5.11/logs:/opt/apache-tomcat-8.5.11/logs \
     lockss/lockss-daemon
