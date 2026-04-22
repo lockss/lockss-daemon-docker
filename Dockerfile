@@ -20,8 +20,8 @@ RUN rpm --import https://assets.lockss.org/rpm/LOCKSS-GPG-RPM-KEY
 RUN yum -y -q update && yum clean all
 
 # Install java and various debugging/networking tools
-RUN yum -y install java-1.8.0-openjdk-headless.x86_64  \
-    iproute procps bind-utils iputils nmap-ncat
+RUN yum -y install lockss-daemon java-1.8.0-openjdk-headless.x86_64 \
+    iproute procps bind-utils iputils nmap-ncat lsof libtirpc
 
 # Install LOCKSS using rpm
 RUN rpm -i http://props.lockss.org:8001/tal/lockss-daemon-latest.noarch.rpm
