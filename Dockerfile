@@ -23,7 +23,7 @@ RUN yum -y -q update && yum clean all
 #   iputils:  ping for network diagnostics
 #   nmap-ncat: "nc" for network diagnostics
 RUN yum -y install lockss-daemon java-1.8.0-openjdk-headless.x86_64 \
-    iproute procps bind-utils iputils nmap-ncat
+    iproute procps bind-utils iputils nmap-ncat lsof libtirpc
 
 # Add files
 ADD src/bin/start-lockss.sh /
