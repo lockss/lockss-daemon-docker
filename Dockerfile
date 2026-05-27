@@ -1,6 +1,6 @@
 FROM rockylinux:9
 
-MAINTAINER "Daniel Vargas" <dlvargas@stanford.edu>
+LABEL maintainer="Daniel Vargas <dlvargas@stanford.edu>"
 
 ARG USER_ID=504
 ARG GROUP_ID=504
@@ -23,8 +23,15 @@ RUN yum -y -q update && yum clean all
 RUN yum -y install lockss-daemon java-1.8.0-openjdk-headless.x86_64 \
     iproute procps bind-utils iputils nmap-ncat lsof libtirpc
 
+# Install PostgreSQL 14 client tools (psql, pg_dump) matching the postgres:14 sidecar.
+# Uses the PGDG repo; only the client package is installed (server stays out).
+RUN yum -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm \
+ && yum -qy module disable postgresql \
+ && yum -y install postgresql14 \
+ && yum clean all
+
 # Install LOCKSS using rpm
-RUN rpm -i http://props.lockss.org:8001/tal/lockss-daemon-latest.noarch.rpm
+RUN rpm -U http://props.lockss.org:8001/tal/lockss-daemon-latest.noarch.rpm
 
 # Add files
 ADD src/bin/start-lockss.sh /
