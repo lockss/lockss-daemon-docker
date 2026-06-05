@@ -71,3 +71,9 @@ Three files control how the LOCKSS daemon runs:
     | `LOCKSS_KEYS_DIR`    | Host path to the LOCKSS keys directory           |
     | `LOCKSS_DATA_DIR`    | Host path to the LOCKSS data directory           |
     | `LOCKSS_LOG_DIR`     | Host path to the LOCKSS log directory            |
+
+   **Path values must be explicit.** Relative paths must start with `./`
+   (e.g. `./data`) and absolute paths with `/` (e.g. `/var/lockss/data`).
+   A bare value starting with an alphanumeric character (e.g. `data`) is
+   interpreted by Docker Compose as a *named volume*, not a host path,
+   and the daemon will not see your existing files.

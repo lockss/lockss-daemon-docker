@@ -19,8 +19,12 @@ ADD src/lockss.repo /etc/yum.repos.d
 RUN rpm --import https://assets.lockss.org/rpm/LOCKSS-GPG-RPM-KEY
 RUN yum -y -q update && yum clean all
 
+# Setup Adoptium repository (Temurin Java 8 — EL9 no longer ships java-1.8.0-openjdk)
+ADD src/adoptium.repo /etc/yum.repos.d
+RUN rpm --import https://packages.adoptium.net/artifactory/api/gpg/key/public
+
 # Install java and various debugging/networking tools
-RUN yum -y install lockss-daemon java-1.8.0-openjdk-headless.x86_64 \
+RUN yum -y install lockss-daemon temurin-8-jdk \
     iproute procps bind-utils iputils nmap-ncat lsof libtirpc
 
 # Install PostgreSQL 14 client tools (psql, pg_dump) matching the postgres:14 sidecar.

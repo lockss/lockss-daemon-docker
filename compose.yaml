@@ -19,7 +19,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      no_cache: true
+      platforms:
+        - linux/amd64
     image: lockss/lockss-daemon
+    platform: linux/amd64
     container_name: lockss
     hostname: localhost
     env_file: .env
