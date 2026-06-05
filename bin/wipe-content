@@ -1,0 +1,39 @@
+#!/bin/sh
+
+ask_for_input() {
+  local prompt="${1}"
+  local default="${2}"
+  case "${prompt}" in
+    *\?) echo -n "${prompt} [${default}] " ;;
+    *)   echo -n "${prompt}: [${default}] " ;;
+  esac
+  read ANS
+  if [ -z "${ANS}" ]; then
+    ANS="${default}"
+  fi
+}
+
+is_yes() {
+  case "${1}" in
+    y | Y | yes | YES | Yes)
+      return 0
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+echo "This will delete all preserved content in your containerized LOCKSS V1 system."
+ask_for_input "Do you want to proceed?" "N"
+if ! is_yes "${ANS}"; then
+  echo "Exiting"
+  exit 1
+fi
+
+docker compose down
+mv /lockss/v1/data/cache /lockss/v1/data/DELCACHE
+rm -rf /lockss/v1/data/DELCACHE &
+mkdir /lockss/v1/data/cache
+rm /lockss/v1/data/config/au.txt
+docker volume rm lockss-daemon-docker_postgres-data
